@@ -38,6 +38,7 @@ namespace KenDev
         public bool downArrowPress = false;
         public bool spacePress = false;
         public bool tHold = false;
+        public bool spaceHold = false;
         public bool ePress = false;
 
         // _________________ Private Methods _________________//
@@ -73,6 +74,7 @@ namespace KenDev
 
             //Keyboard Holds
             tHold = Input.GetKey(KeyCode.T);
+            spaceHold = Input.GetKey(KeyCode.Space);
         }
 
         private void ClearInputs()
@@ -88,6 +90,7 @@ namespace KenDev
             downArrowPress = false;
             spacePress = false;
             tHold = false;
+            spaceHold = false;
             ePress = false;
 
             readyToClear = false;
