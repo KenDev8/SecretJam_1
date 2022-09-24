@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 427063484}
   - component: {fileID: 427063485}
   - component: {fileID: 427063486}
+  - component: {fileID: 427063487}
   m_Layer: 0
   m_Name: Betty
   m_TagString: Untagged
@@ -487,6 +488,18 @@ MonoBehaviour:
   sprayPattern: 1
   maxSprayDegree: 4
   minSprayDegree: -4
+--- !u!114 &427063487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427063479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37750f46623f5d24f9fa749cfc75f17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &565475930
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +758,6 @@ GameObject:
   - component: {fileID: 961459494}
   - component: {fileID: 961459493}
   - component: {fileID: 961459497}
-  - component: {fileID: 961459498}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -821,7 +833,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.625
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -886,29 +898,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &961459498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961459492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_AssetsPPU: 16
-  m_RefResolutionX: 320
-  m_RefResolutionY: 180
-  m_CropFrame: 0
-  m_GridSnapping: 0
-  m_UpscaleRT: 0
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!1 &1223413364
 GameObject:
   m_ObjectHideFlags: 0
@@ -2794,6 +2783,7 @@ GameObject:
   - component: {fileID: 1653873249}
   - component: {fileID: 1653873252}
   - component: {fileID: 1653873250}
+  - component: {fileID: 1653873253}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -2915,7 +2905,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.96875
+  orthographic size: 5.625
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2931,6 +2921,29 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1653873253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653873247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_AssetsPPU: 16
+  m_RefResolutionX: 320
+  m_RefResolutionY: 180
+  m_CropFrame: 0
+  m_GridSnapping: 2
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1 &1715248961
 GameObject:
   m_ObjectHideFlags: 0
@@ -3190,6 +3203,7 @@ GameObject:
   - component: {fileID: 1739988182}
   - component: {fileID: 1739988181}
   - component: {fileID: 1739988185}
+  - component: {fileID: 1739988186}
   m_Layer: 7
   m_Name: Skelly
   m_TagString: Untagged
@@ -3238,11 +3252,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &1739988183
 SpriteRenderer:
@@ -3324,6 +3338,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
+--- !u!114 &1739988186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739988180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012908262aaeb75468f8be67d82a3941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.5
 --- !u!1 &1877843641
 GameObject:
   m_ObjectHideFlags: 0

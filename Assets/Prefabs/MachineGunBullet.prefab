@@ -105,7 +105,7 @@ MonoBehaviour:
   whatIsDamageable:
     serializedVersion: 2
     m_Bits: 128
-  damage: 1
+  damage: 2
   targetScanArea: {fileID: 0}
   targetTransform: {fileID: 0}
   homingSpeedDelta: 0
@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &3520415060772276119
 BoxCollider2D:

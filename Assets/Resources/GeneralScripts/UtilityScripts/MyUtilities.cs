@@ -26,13 +26,13 @@ namespace KenDev
 
         //
         // Summary:
-        //     returns true if: _colliderLayer != _layerForCheck,  false otherwise
+        //     returns true if: _colliderLayer == _layerForCheck,  false otherwise
         public bool CheckCollisionWithLayer(int _colliderLayer, LayerMask _layerForCheck)
         {
             if (((1 << _colliderLayer) & _layerForCheck) != 0)
-                return false;
+                return true;
 
-            return true;
+            return false;
         }
         //________________________ Collision ______________________//
 
