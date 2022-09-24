@@ -15,7 +15,7 @@ namespace KenDev
         private int timerMinutes = 0;
         private int timerHours = 0;
 
-        public delegate void OnTimerUpdateHandler(int _hr, int _min, int _sec);
+        public delegate void OnTimerUpdateHandler(float _hr, float _min, float _sec);
         public event OnTimerUpdateHandler OnTimerUpdate;
 
         public delegate void OnTargetReachHandler();

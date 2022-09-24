@@ -62,15 +62,15 @@ namespace KenDev
             if (hitSomething)
                 return;
 
-            if (MyUtilities.Instance.CheckCollisionWithLayer(collision.gameObject.layer, whatIsDamageable))
-                return;
-
-            IDamageable damageableObj = collision.gameObject.GetComponent<IDamageable>();
-            if (damageableObj != null)
+            if (!MyUtilities.Instance.CheckCollisionWithLayer(collision.gameObject.layer, whatIsDamageable))
             {
-                hitSomething = true;
-                Debug.Log("Hit Damageable");
-                damageableObj.TakeDamage(damage);
+                IDamageable damageableObj = collision.gameObject.GetComponent<IDamageable>();
+                if (damageableObj != null)
+                {
+                    hitSomething = true;
+                    Debug.Log("Hit Damageable");
+                    damageableObj.TakeDamage(damage);
+                }
             }
 
             Destroy(gameObject);

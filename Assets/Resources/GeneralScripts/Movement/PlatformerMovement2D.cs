@@ -2,32 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 namespace KenDev
 {
     public class PlatformerMovement2D : MonoBehaviour
     {
-        public enum eFacing { FacingLeft, FacingRight };
+        public enum eFacing { FacingRight, FacingLeft};
 
         [Space]
         [Header("Movement Parameters")]
-        public float speed = 6f;
-        public eFacing facing = eFacing.FacingRight;
-        public float maxFallSpeed = 15f;
+        public float moveSpeed = 6f;
+        public bool isFacingRight = true;
+        private float horizontal;
 
         [Space]
         [Header("Jump Parameters")]
-        public float jumpInitForce = 15f;
-        public float jumpHoldForce = 0.69f;
-        public float jumpHoldDuration = 1.5f;
-        public float gravityFallIncreas = 1.5f;
+        public float jumpSpeed = 15f;
         private float jumpTime = 0f;
-        private float fallGravity;
-        private float initGravityScale;
+        public float maxFallSpeed = 15f;
 
         [Space]
-        [Header("Ray Parameters")]
+        [Header("Ground Check Parameters")]
         public float xGeneralGroundOffset = 0f;
         public float xGroundOffset = 0.65f;
         public float yGroundOffset = 0;
@@ -37,13 +34,7 @@ namespace KenDev
         [Space]
         [Header("Player Flags")]
         public bool isGrounded = true;
-        public bool isJumping = false;
         public bool isMoving = false;
-        public bool isWalking = false;
-
-        private bool jumpPress;
-        private bool jumpHold;
-        private float xDir;
 
         private Rigidbody2D rb;
 
@@ -51,30 +42,50 @@ namespace KenDev
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-            initGravityScale = rb.gravityScale;
-            fallGravity = initGravityScale + gravityFallIncreas;
         }
 
 
         private void Update()
         {
-            ReadInputs();
+            // Make sure player fall speed isn't too fast
+            if (rb.velocity.y < -maxFallSpeed)
+                rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
+
+            // horizontal velocity set
+            rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y) ;
+            // flip the player
+            if (horizontal > 0f && !isFacingRight)
+            {
+                FlipPlayer();
+            }
+            else if (horizontal < 0f && isFacingRight)
+            {
+                FlipPlayer();
+            }
         }
+
+        public void Move(InputAction.CallbackContext context)
+        {
+            
+            horizontal = context.ReadValue<Vector2>().x;
+            
+        }
+
+        public void Jump(InputAction.CallbackContext context)
+        {
+            if (context.started && isGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+            }
+            if (context.canceled && rb.velocity.y > 0f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            }
+        }
+
         void FixedUpdate()
         {
             EnviromentCheck();
-
-            // Physics based movement
-            HandleMovment();
-            HandleJump();
-        }
-
-        private void ReadInputs()
-        {
-            xDir = PlayerInput.Instance.xDir;
-            if (PlayerInput.Instance.spacePress)
-                jumpPress = true;
-            jumpHold = PlayerInput.Instance.spaceHold;
         }
 
         private void EnviromentCheck()
@@ -93,79 +104,19 @@ namespace KenDev
                 isGrounded = true;
         }
 
-        private void HandleMovment()
-        {
-            // Make sure player fall speed isn't too fast
-            if (rb.velocity.y < -maxFallSpeed)
-                rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
-
-            // Horizontal
-            rb.velocity = new Vector2(xDir * speed, rb.velocity.y);
-            if (xDir > 0f)
-            {
-                isMoving = true;
-                facing = eFacing.FacingRight;
-            }
-            else if (xDir < 0f)
-            {
-                isMoving = true;
-                facing = eFacing.FacingLeft;
-            }
-            else
-            {
-                isMoving = false;
-            }
-
-            if (isGrounded && isMoving)
-                isWalking = true;
-            else
-                isWalking = false;
-
-            FlipPlayer(); //make sure player facing right way
-        }
-
-        private void HandleJump()
-        {
-            // Increase gravity scale when player is falling.
-            if (!isGrounded && rb.velocity.y <= 0)
-            {
-                isJumping = false;
-                rb.gravityScale = fallGravity;
-            }
-
-            // Return gravity scale back to normal when landed.
-            if (isGrounded && rb.gravityScale > initGravityScale)
-            {
-                rb.gravityScale = initGravityScale;
-            }
-
-
-            if (jumpPress && !isJumping && isGrounded)
-            {
-                jumpPress = false;
-                // Jump initial height 
-                isJumping = true;
-                isGrounded = false;
-                jumpTime = Time.time + jumpHoldDuration;    // Record time for jump key hold boost
-                //rb.AddForce(new Vector2(0f, jumpInitForce), ForceMode2D.Impulse);
-                rb.velocity = Vector2.zero;
-                rb.velocity = Vector2.up * jumpInitForce;
-            }
-            else if (isJumping)
-            {
-                // Higher jump by holding jump key and withing the jumpTime
-                if (jumpHold)
-                    rb.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
-
-                if (Time.time >= jumpTime)
-                    isJumping = false;
-            }
-        }
-
         private void FlipPlayer()
         {
             // Rotate on Y axis 180 degrees depending on current facing value (left or right)
-            transform.rotation = Quaternion.Euler(0f, (int)facing * 180f, 0f);
+            isFacingRight = !isFacingRight;
+            if (isFacingRight)
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            else
+                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+
+
+            //Vector3 localScale = transform.localScale;
+            //localScale.x *= -1f;
+            //transform.localScale = localScale;
         }
 
         public RaycastHit2D Raycast(Vector2 _origin, Vector2 _direction, bool _debug = false)
