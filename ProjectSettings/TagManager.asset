@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Decorations
   - Skeleton
-  - 
-  - 
-  - 
+  - Player
+  - Collectable
+  - Projectile
   - 
   - 
   - 

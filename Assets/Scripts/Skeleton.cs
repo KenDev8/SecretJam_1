@@ -9,11 +9,13 @@ namespace KenDev
         private Rigidbody2D rb;
         private HealthSystem hs;
         private Transform target;
+        private Dropper dropper;
         public float speed;
 
 
         void Start()
         {
+            dropper = GetComponent<Dropper>();
             rb = GetComponent<Rigidbody2D>();
             hs = GetComponent<HealthSystem>();
             target = Betty.Instance.transform;
@@ -39,6 +41,7 @@ namespace KenDev
         }
         public void Die()
         {
+            dropper.Drop();
             Destroy(gameObject);
         }
     }

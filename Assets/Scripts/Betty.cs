@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KenDev;
 
-public class Betty : MonoBehaviour
+public class Betty : MonoBehaviour, ICollector
 {
     //_________________ Signelton Pattern _________________//
     public static Betty _instance;
@@ -18,15 +19,12 @@ public class Betty : MonoBehaviour
         }
     }
     //_________________ Signelton Pattern _________________//
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public int bonesCount = 0;
+
+    public void Collect()
     {
-        
+        bonesCount += 1;
+        print(bonesCount);
     }
 }
