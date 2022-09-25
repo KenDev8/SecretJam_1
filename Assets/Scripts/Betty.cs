@@ -87,4 +87,13 @@ public class Betty : MonoBehaviour, ICollector
         gunContoller.maxSprayDegree /= heavyGunSprayMultiplier;
     }
 
+    public int DiscardBonesToPile()
+    {
+        EnterNormalState();
+        int bonesToReturn = bonesCount;
+        bonesCount = 0;
+
+        return bonesToReturn;
+    }
+
 }
