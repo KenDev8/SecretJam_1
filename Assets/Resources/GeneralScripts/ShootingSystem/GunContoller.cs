@@ -18,7 +18,6 @@ namespace KenDev
         public bool isShooting = false;
         public bool sprayPattern = false;
         public float maxSprayDegree = 3f;
-        public float minSprayDegree = -3f;
         private float counter = 0f;
         private bool canShoot;
 
@@ -68,10 +67,9 @@ namespace KenDev
 
         public void Shoot()
         {
-            print(transform.rotation.y);
             Vector3 projectileRotation;
             if (sprayPattern)
-                projectileRotation = new Vector3(0f, transform.rotation.y * 180f, Random.Range(minSprayDegree, maxSprayDegree));
+                projectileRotation = new Vector3(0f, transform.rotation.y * 180f, Random.Range(-maxSprayDegree, maxSprayDegree));
             else
                 projectileRotation = transform.rotation.eulerAngles;
 

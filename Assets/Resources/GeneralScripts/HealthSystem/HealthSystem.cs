@@ -76,7 +76,7 @@ namespace KenDev
         public void UpdateHealth(float _amount)
         {
             currentHealth += _amount;
-            print("Health: " + currentHealth);
+            //print("Health: " + currentHealth);
             OnUpdateHealth?.Invoke(currentHealth);
         }
 

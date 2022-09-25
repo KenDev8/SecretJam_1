@@ -58,7 +58,6 @@ namespace KenDev
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            print(collision.gameObject.layer);
             // if this projectile already hit something, don't continue with hit logic, it should be destroyed
             if (hitSomething)
                 return;
@@ -67,11 +66,11 @@ namespace KenDev
             if (MyUtilities.Instance.CheckCollisionWithLayer(collision.gameObject.layer, whatIsDamageable))
             {
                 IDamageable damageableObj = collision.gameObject.GetComponent<IDamageable>();
-                Debug.Log("Hit something");
+                //Debug.Log("Hit something");
                 if (damageableObj != null)
                 {
                     hitSomething = true;
-                    Debug.Log("Hit Damageable");
+                    //Debug.Log("Hit Damageable");
                     damageableObj.TakeDamage(damage);
                 }
             }

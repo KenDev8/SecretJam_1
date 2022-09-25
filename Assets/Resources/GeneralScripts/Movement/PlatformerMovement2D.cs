@@ -13,6 +13,7 @@ namespace KenDev
 
         [Space]
         [Header("Movement Parameters")]
+        public bool canMove = true;
         public float moveSpeed = 6f;
         public bool isFacingRight = true;
         private float horizontal;
@@ -52,7 +53,13 @@ namespace KenDev
                 rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
 
             // horizontal velocity set
-            rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y) ;
+            if(canMove)
+                rb.velocity = new Vector2(horizontal * moveSpeed, rb.velocity.y);
+            else
+            {
+                rb.velocity = Vector2.zero;
+            }
+
             // flip the player
             if (horizontal > 0f && !isFacingRight)
             {
