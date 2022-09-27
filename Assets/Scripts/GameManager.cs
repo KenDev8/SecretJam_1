@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     public int run2ClusterMaxSpawns2 = 15;
     public int run2ClusterMaxSpawns3 = 20;
     public int run2BonesToUpgradePile = 65;
-    public int run2HeavyThreshold = 50;
+    public int run2HeavyThreshold = 25;
 
     [Space]
     [Header("Run 3")]
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     public int run3ClusterMaxSpawns2 = 20;
     public int run3ClusterMaxSpawns3 = 25;
     public int run3BonesToUpgradePile = 120;
-    public int run3HeavyThreshold = 80;
+    public int run3HeavyThreshold = 50;
 
 
     private void Start()
