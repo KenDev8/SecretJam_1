@@ -97,4 +97,16 @@ public class Betty : MonoBehaviour, ICollector
         return bonesToReturn;
     }
 
+    [Space]
+    [Header("Protal Gun Parameters")]
+    public SpriteRenderer gunSpriteRenderer;
+    public Sprite portalGunSprite;
+    public GameObject PortalGunBullets;
+
+    public void PickUpPortalGun()
+    {
+        gunSpriteRenderer.sprite = portalGunSprite;
+        gunContoller.projectile = PortalGunBullets;
+    }
+
 }

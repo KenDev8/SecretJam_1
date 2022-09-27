@@ -162,6 +162,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
+  isFacingRight: 1
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  yOffset: -0.5
+  rayLength: 0.5
+  isGrounded: 0
+  jumpSpeed: 14
 --- !u!114 &6185552249473341750
 MonoBehaviour:
   m_ObjectHideFlags: 0
