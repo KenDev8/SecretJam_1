@@ -54,6 +54,7 @@ public class Betty : MonoBehaviour, ICollector
         if(bonesCount < maxBonesCount)
         {
             bonesCount += 1;
+            print(bonesCount);
         }
 
         if(bonesCount >= heavyBonesThreshold && !isHeavy)

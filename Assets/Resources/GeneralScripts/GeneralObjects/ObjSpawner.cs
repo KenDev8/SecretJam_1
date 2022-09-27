@@ -19,19 +19,19 @@ namespace KenDev
         public List<Transform> spawnPoints;
 
 
-        private bool spawnEnabled = true;
+        public bool spawnEnabled = true;
         private float curSpawnTime = 0f;
         private bool canSpawn = true;
         private float speed_multiplier = 1f;
 
-        private SpriteRenderer sr;
+        public SpriteRenderer sr;
 
 
 
         private void Awake()
         {
-            sr = GetComponent<SpriteRenderer>();
-            sr.enabled = false;
+            if(sr != null)
+                sr.enabled = false;
         }
 
         //Spawn handeling
@@ -55,7 +55,7 @@ namespace KenDev
             canSpawn = b;
         }
 
-        private void Spawn()
+        public void Spawn()
         {
             GameObject obj = objectsList[Random.Range(0, objectsList.Count)];
             Vector2 pos = transform.position;
