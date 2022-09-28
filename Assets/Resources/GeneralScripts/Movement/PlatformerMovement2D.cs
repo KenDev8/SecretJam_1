@@ -71,7 +71,7 @@ namespace KenDev
                 FlipPlayer();
             }
 
-            if (Mathf.Abs(horizontal) > 0.1f)
+            if (Mathf.Abs(horizontal) > 0.1f && canMove)
                 isMoving = true;
             else
                 isMoving = false;
