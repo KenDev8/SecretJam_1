@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6185552249473341748}
   - component: {fileID: 6185552249473341751}
   - component: {fileID: 6185552249473341750}
+  - component: {fileID: 604865342}
   m_Layer: 7
   m_Name: Skelly
   m_TagString: Untagged
@@ -127,7 +128,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1, y: 1.5}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -184,3 +185,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDrop: {fileID: 7594992497773246924, guid: 7f10929ce3508c74081e00d763238c46, type: 3}
   maxDropCount: 3
+--- !u!95 &604865342
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6185552249473341753}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e47e490656e92643a0f62b1bbc800de, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

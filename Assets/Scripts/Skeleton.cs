@@ -6,26 +6,34 @@ namespace KenDev
 {
     public class Skeleton : MonoBehaviour, IDamageable
     {
+        private Animator anim;
         private Rigidbody2D rb;
         private HealthSystem hs;
         private Transform target;
         private Dropper dropper;
         public float speed;
         public bool isFacingRight = true;
-
+        private bool spawnFinished = false;
 
         void Start()
         {
             dropper = GetComponent<Dropper>();
             rb = GetComponent<Rigidbody2D>();
+            anim = GetComponent<Animator>();
             hs = GetComponent<HealthSystem>();
             target = Betty.Instance.transform;
+            
+            hs.isInvulnerable = true;
+            rb.bodyType = RigidbodyType2D.Kinematic;
 
             hs.OnDeath += Die;
         }
 
         void Update()
         {
+            if (!spawnFinished)
+                return;
+
             EnviromentCheck();
 
             HandleFollow();
@@ -51,6 +59,7 @@ namespace KenDev
 
         public void TakeDamage(int _damage)
         {
+            anim.SetTrigger("hit");
             hs.ReduceHP(_damage);
         }
         public void Die()
@@ -104,6 +113,13 @@ namespace KenDev
         private void Jump()
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+        }
+
+        public void SpawnFinished()
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            spawnFinished = true;
+            hs.isInvulnerable = false;
         }
     }
 }
