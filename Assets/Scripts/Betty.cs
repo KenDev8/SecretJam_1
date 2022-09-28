@@ -22,6 +22,7 @@ public class Betty : MonoBehaviour, ICollector
 
     private PlatformerMovement2D movement;
     private GunContoller gunContoller;
+    private Animator anim;
 
     public int bonesCount = 0;
     public int maxBonesCount = 10;
@@ -39,6 +40,7 @@ public class Betty : MonoBehaviour, ICollector
     {
         movement = GetComponent<PlatformerMovement2D>();
         gunContoller = GetComponent<GunContoller>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -47,6 +49,12 @@ public class Betty : MonoBehaviour, ICollector
         {
             movement.canMove = !gunContoller.isShooting;
         }
+
+        anim.SetBool("isRunning", movement.isMoving);
+        anim.SetBool("isGrounded", movement.isGrounded);
+        anim.SetBool("isInAir", movement.isInAir);
+        
+
     }
 
     public void Collect()

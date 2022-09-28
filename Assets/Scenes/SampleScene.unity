@@ -2477,6 +2477,7 @@ GameObject:
   - component: {fileID: 427063485}
   - component: {fileID: 427063486}
   - component: {fileID: 427063487}
+  - component: {fileID: 427063488}
   m_Layer: 8
   m_Name: Betty
   m_TagString: Untagged
@@ -2729,6 +2730,26 @@ MonoBehaviour:
   gunSpriteRenderer: {fileID: 724439185}
   portalGunSprite: {fileID: 872333112, guid: c6798b2bba100c849abdc766d4b7ca56, type: 3}
   PortalGunBullets: {fileID: 7775544908147002861, guid: 04ff81faf86ed274fa3e691067be6d4b, type: 3}
+--- !u!95 &427063488
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427063479}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 28be967547b4b5049913fea642c7eddc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &431666865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3462,7 +3483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565475930}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.125, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -69494,10 +69515,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: -0.25
     y: 0
-    width: 1
-    height: 1
+    width: 0.5
+    height: 0
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

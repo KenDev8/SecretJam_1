@@ -36,6 +36,7 @@ namespace KenDev
         [Header("Player Flags")]
         public bool isGrounded = true;
         public bool isMoving = false;
+        public bool isInAir = false;
 
         private Rigidbody2D rb;
 
@@ -69,6 +70,16 @@ namespace KenDev
             {
                 FlipPlayer();
             }
+
+            if (Mathf.Abs(horizontal) > 0.1f)
+                isMoving = true;
+            else
+                isMoving = false;
+
+            if (Mathf.Abs(GetVerticalSpeed()) > 0.1f)
+                isInAir = true;
+            else
+                isInAir = false;
         }
 
         public void Move(InputAction.CallbackContext context)
@@ -81,7 +92,7 @@ namespace KenDev
         public void Jump(InputAction.CallbackContext context)
         {
             if (context.started && isGrounded)
-            {
+            { 
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
             }
             if (context.canceled && rb.velocity.y > 0f)
@@ -144,6 +155,16 @@ namespace KenDev
             }
 
             return hitInfo;
+        }
+
+        public float GetHorizontalSpeed()
+        {
+            return rb.velocity.x;
+        }
+
+        public float GetVerticalSpeed()
+        {
+            return rb.velocity.y;
         }
     }
 
