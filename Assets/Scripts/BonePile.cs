@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KenDev;
+using TMPro;
 
 public class BonePile : MonoBehaviour
 {
     public LayerMask bettyLayer;
+    public TMP_Text currentText;
+    public TMP_Text neededText;
+
+
     private Rigidbody2D rb;
 
     [Header("Bones Parameters")]
@@ -50,9 +55,12 @@ public class BonePile : MonoBehaviour
         if(MyUtilities.Instance.CheckCollisionWithLayer(collision.gameObject.layer, bettyLayer))
         {
             Betty betty = collision.gameObject.GetComponent<Betty>();
+            if (betty.bonesCount <= 0)
+                return;
+            
             boneCount += betty.DiscardBonesToPile();
 
-            if(boneCount >= bonesToUpgrade)
+            if (boneCount >= bonesToUpgrade)
             {
                 UpgradePile();
                 GameManager.Instance.UpgradeRun();
@@ -60,14 +68,28 @@ public class BonePile : MonoBehaviour
 
             if(boneCount >= boneThresholdToFall)
             {
+                UpdatePileText();
                 PileFall();
             }
         }
     }
 
+    public void SetBonesToUpgrade(int _amount)
+    {
+        bonesToUpgrade = _amount;
+        UpdatePileText();
+    }
+
+    private void UpdatePileText()
+    {
+        currentText.text = boneCount.ToString();
+        neededText.text = bonesToUpgrade.ToString();
+    }
+
     private void PileFall()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        AudioManager.Instance.PlayPileFall();
     }
 
     public void UpgradePile()

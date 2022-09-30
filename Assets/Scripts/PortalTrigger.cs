@@ -27,6 +27,7 @@ namespace KenDev
                 if (portalActive)
                     return;
 
+                AudioManager.Instance.PlayPortalOpen();
                 SetPortalState(true);
                 linkedWall.ActivatePortal();
                 if (destroyTriggerObject)

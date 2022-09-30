@@ -217,7 +217,7 @@ MonoBehaviour:
   whatIsDamageable:
     serializedVersion: 2
     m_Bits: 128
-  damage: 2
+  damage: 10
   targetScanArea: {fileID: 0}
   targetTransform: {fileID: 0}
   homingSpeedDelta: 0

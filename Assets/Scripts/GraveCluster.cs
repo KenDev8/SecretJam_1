@@ -20,6 +20,7 @@ public class GraveCluster : MonoBehaviour
                 return;
 
             clusterSpawned = true;
+            AudioManager.Instance.PlayGraveFight();
             StartCoroutine(SpawnSkellies());
         }
     }

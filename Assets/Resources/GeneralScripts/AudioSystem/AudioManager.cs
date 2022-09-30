@@ -22,23 +22,26 @@ public class AudioManager : MonoBehaviour
 
     [Header("Music")]
     public AudioClip mainMusicClip;
+    public AudioClip graveFightClip;
 
     [Header("Ambient")]
     public AudioClip caveAmbientClip;
+    public AudioClip graveAmbientClip;
+
+    [Header("Player Movement SFX")]
+    public AudioClip runClip;
+
+    [Header("Player SFX")]
+    public AudioClip shootClip;
 
     [Header("Stings SFX")]
-    public AudioClip monsterClickClip;
+    public AudioClip skellyHitClip;
+    public AudioClip skellyDeathClip;
+    public AudioClip bonePickUpClip;
+    public AudioClip pileUpgradeClip;
+    public AudioClip pileFallClip;
+    public AudioClip portalOpenClip;
 
-    [Header("Dialogue SFX")]
-    public AudioClip responseSelectionSFXClip;
-    public AudioClip responseConfirmSFXClip;
-
-    [Header("Text Speaking SFX")]
-    public AudioClip[] TorielSpeakClips;
-
-    [Header("Girl SFX")]
-    public AudioClip walkingSFXClip;
-    public AudioClip deathSFXClip;
 
 
     //____________________ Audio Clips ____________________// 
@@ -46,10 +49,10 @@ public class AudioManager : MonoBehaviour
     //___________________ Audio Sources ___________________// 
     private AudioSource musicSource;
     private AudioSource ambientSource;
+    private AudioSource playerMovementSource;
+    private AudioSource playerSFXSource;
     private AudioSource stingSource;
-    private AudioSource dialogueSource;
-    private AudioSource speakerSource;
-    private AudioSource girlSource;
+    
 
     //___________________ Audio Sources ___________________// 
 
@@ -59,10 +62,10 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Mixer Groups")]
     public AudioMixerGroup musicGroup;
     public AudioMixerGroup ambientGroup;
+    public AudioMixerGroup playerMovementGroup;
+    public AudioMixerGroup playerSFXGroup;
     public AudioMixerGroup stingGroup;
-    public AudioMixerGroup speakerGroup;
-    public AudioMixerGroup dialogueGroup;
-    public AudioMixerGroup girlGroup;
+    
 
     //___________________ Mixer Groups ___________________// 
 
@@ -71,26 +74,23 @@ public class AudioManager : MonoBehaviour
         // Generate the relevant Audio Sources
         musicSource     = gameObject.AddComponent<AudioSource>() as AudioSource;
         ambientSource   = gameObject.AddComponent<AudioSource>() as AudioSource;
-        speakerSource   = gameObject.AddComponent<AudioSource>() as AudioSource;
-        dialogueSource  = gameObject.AddComponent<AudioSource>() as AudioSource;
+        playerMovementSource = gameObject.AddComponent<AudioSource>() as AudioSource;
+        playerSFXSource = gameObject.AddComponent<AudioSource>() as AudioSource;
         stingSource     = gameObject.AddComponent<AudioSource>() as AudioSource;
-        girlSource      = gameObject.AddComponent<AudioSource>() as AudioSource;
 
         // disable play on awake 
         musicSource.playOnAwake     = false;
         ambientSource.playOnAwake   = false;
-        speakerSource.playOnAwake   = false;
-        dialogueSource.playOnAwake  = false;
+        playerMovementSource.playOnAwake   = false;
+        playerSFXSource.playOnAwake  = false;
         stingSource.playOnAwake     = false;
-        girlSource.playOnAwake      = false;
 
         // Assign each audio source a mixer group
         musicSource.outputAudioMixerGroup       = musicGroup;
         ambientSource.outputAudioMixerGroup     = ambientGroup;
-        speakerSource.outputAudioMixerGroup     = speakerGroup;
-        dialogueSource.outputAudioMixerGroup    = dialogueGroup;
+        playerMovementSource.outputAudioMixerGroup     = playerMovementGroup;
+        playerSFXSource.outputAudioMixerGroup    = playerSFXGroup;
         stingSource.outputAudioMixerGroup       = stingGroup;
-        girlSource.outputAudioMixerGroup        = girlGroup;
 
         // set initial clips (normally looping clips)
         if(mainMusicClip != null)
@@ -105,34 +105,89 @@ public class AudioManager : MonoBehaviour
             ambientSource.loop = true;
         }
 
+        PlayCaveAmbient();
 
     }
 
-    // whenever a character "speaks" a text 
-    public void PlaySpeakerSFX(string name)
+    public void PlayPileFall()
     {
-        switch(name)
-        {
-            case "Toriel":
-                int c = Random.Range(0, TorielSpeakClips.Length);
-                speakerSource.clip = TorielSpeakClips[c];
-                speakerSource.Play();
-                break;
-
-        }
+        stingSource.clip = pileFallClip;
+        stingSource.Play();
+    }
+    public void PlayPlayerRun()
+    {
+        playerMovementSource.clip = runClip;
+        RandomizeSound(playerMovementSource);
+        playerMovementSource.Play();
     }
 
-    // whenever a response button is selected
-    public void PlayResponseSelectionSFX()
+    public void PlayShoot()
     {
-        dialogueSource.clip = responseSelectionSFXClip;
-        dialogueSource.Play();
+
+        playerSFXSource.clip = shootClip;
+        RandomizeSound(playerSFXSource);
+        playerSFXSource.Play();
     }
 
-    // whenever a response button is chosen
-    public void PlayResponseConfirmSFX()
+    public void PlaySkellyHit()
     {
-        dialogueSource.clip = responseConfirmSFXClip;
-        dialogueSource.Play();
+        stingSource.clip = skellyHitClip;
+        RandomizeSound(stingSource);
+        stingSource.Play();
+    }
+
+    public void PlaySkellyDeath()
+    {
+        stingSource.clip = skellyDeathClip;
+        RandomizeSound(stingSource);
+        stingSource.Play();
+    }
+
+    public void PlayPileUpgrade()
+    {
+        stingSource.clip = pileUpgradeClip;
+        stingSource.Play();
+    }
+
+    public void PlayPortalOpen()
+    {
+        stingSource.clip = portalOpenClip;
+        stingSource.Play();
+    }
+
+    public void PlayPickUp()
+    {
+        stingSource.clip = bonePickUpClip;
+        stingSource.Play();
+    }
+
+    public void PlayGraveFight()
+    {
+        musicSource.clip = graveFightClip;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    public void StopMusic()
+    {
+        musicSource.clip = null;
+        musicSource.Stop();
+    }
+
+    public void PlayGraveYardAmbient()
+    {
+        ambientSource.clip = graveAmbientClip;
+        ambientSource.Play();
+    }
+
+    public void PlayCaveAmbient()
+    {
+        ambientSource.clip = caveAmbientClip;
+        ambientSource.Play();
+    }
+
+    private void RandomizeSound(AudioSource _source)
+    {
+        _source.pitch = Random.Range(0.8f, 1.3f);
     }
 }

@@ -7,6 +7,11 @@ namespace KenDev
 {
     public class MenuManager : MonoBehaviour
     {
+        private void Start()
+        {
+            AudioManager.Instance.PlayGraveYardAmbient();
+        }
+
         public void StartPress()
         {
             SceneManager.LoadScene("GameScene");

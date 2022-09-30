@@ -14,12 +14,15 @@ namespace KenDev
 
         [Space]
         [Header("Shooting Parameters")]
-        public float timeBtwShots = 0.1f;
+        public float timeBtwShots = 0.5f;
         public bool isShooting = false;
         public bool sprayPattern = false;
         public float maxSprayDegree = 3f;
         private float counter = 0f;
         private bool canShoot;
+
+        public delegate void OnShootHandler();
+        public event OnShootHandler OnShoot;
 
         private void Awake()
         {
@@ -73,6 +76,7 @@ namespace KenDev
             else
                 projectileRotation = transform.rotation.eulerAngles;
 
+            OnShoot?.Invoke();
             Instantiate(projectile, shootPoint.position, Quaternion.Euler(projectileRotation));
         }
     }

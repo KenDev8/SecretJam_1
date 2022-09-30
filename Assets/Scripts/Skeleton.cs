@@ -60,10 +60,13 @@ namespace KenDev
         public void TakeDamage(int _damage)
         {
             anim.SetTrigger("hit");
+            AudioManager.Instance.PlaySkellyHit();
+
             hs.ReduceHP(_damage);
         }
         public void Die()
         {
+            AudioManager.Instance.PlaySkellyDeath();
             dropper.Drop();
             Destroy(gameObject);
         }

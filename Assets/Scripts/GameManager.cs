@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KenDev;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -84,7 +86,8 @@ public class GameManager : MonoBehaviour
                 gravesClusters[2].maxSpawns = run1ClusterMaxSpawns2;
                 gravesClusters[3].maxSpawns = run1ClusterMaxSpawns3;
                 Betty.Instance.heavyBonesThreshold = run1HeavyThreshold;
-                BonePile.Instance.bonesToUpgrade = run1BonesToUpgradePile;
+                Betty.Instance.maxBonesCount = run1HeavyThreshold;
+                BonePile.Instance.SetBonesToUpgrade(run1BonesToUpgradePile);
                 break;
             case 2:
                 gravesClusters[0].maxSpawns = run2ClusterMaxSpawns0;
@@ -92,7 +95,8 @@ public class GameManager : MonoBehaviour
                 gravesClusters[2].maxSpawns = run2ClusterMaxSpawns2;
                 gravesClusters[3].maxSpawns = run2ClusterMaxSpawns3;
                 Betty.Instance.heavyBonesThreshold = run2HeavyThreshold;
-                BonePile.Instance.bonesToUpgrade = run2BonesToUpgradePile;
+                Betty.Instance.maxBonesCount = run2HeavyThreshold;
+                BonePile.Instance.SetBonesToUpgrade(run2BonesToUpgradePile);
                 break;
             case 3:
                 gravesClusters[0].maxSpawns = run3ClusterMaxSpawns0;
@@ -100,8 +104,23 @@ public class GameManager : MonoBehaviour
                 gravesClusters[2].maxSpawns = run3ClusterMaxSpawns2;
                 gravesClusters[3].maxSpawns = run3ClusterMaxSpawns3;
                 Betty.Instance.heavyBonesThreshold = run3HeavyThreshold;
-                BonePile.Instance.bonesToUpgrade = run3BonesToUpgradePile;
+                Betty.Instance.maxBonesCount = run3HeavyThreshold;
+                BonePile.Instance.SetBonesToUpgrade(run3BonesToUpgradePile);
                 break;
         }
+    }
+
+    public GameObject pauseMenu;
+    public void PauseMenu()
+    {
+        if(pauseMenu.activeSelf)
+            pauseMenu.SetActive(false);
+        else
+            pauseMenu.SetActive(true);
+    }
+
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KenDev;
-
+using TMPro;
 public class Betty : MonoBehaviour, ICollector
 {
     //_________________ Signelton Pattern _________________//
@@ -35,12 +35,18 @@ public class Betty : MonoBehaviour, ICollector
     public float heavySpeedMultiplier;
     public float heavyJumpMultiplier;
     public float heavyGunSprayMultiplier;
+    public TMP_Text stateText;
+    public TMP_Text bonesText;
+    public TMP_Text maxBonesText;
+    public TMP_Text heavyTHText;
 
     private void Start()
     {
         movement = GetComponent<PlatformerMovement2D>();
         gunContoller = GetComponent<GunContoller>();
         anim = GetComponent<Animator>();
+
+        gunContoller.OnShoot += BettyShot;
     }
 
     private void Update()
@@ -53,12 +59,16 @@ public class Betty : MonoBehaviour, ICollector
         anim.SetBool("isRunning", movement.isMoving);
         anim.SetBool("isGrounded", movement.isGrounded);
         anim.SetBool("isInAir", movement.isInAir);
-        
+
+        bonesText.text = bonesCount.ToString();
+        maxBonesText.text = maxBonesCount.ToString();
+        heavyTHText.text = heavyBonesThreshold.ToString();
 
     }
 
     public void Collect()
     {
+        AudioManager.Instance.PlayPickUp();
         if(bonesCount < maxBonesCount)
         {
             bonesCount += 1;
@@ -77,8 +87,9 @@ public class Betty : MonoBehaviour, ICollector
             return;
 
         isHeavy = true;
+        stateText.text = "Heavy >";
         bonesCount -= heavyEnterBonesCost;
-        maxBonesCount *= heavyMaxBonesMultiplier;
+        maxBonesCount += heavyMaxBonesMultiplier;
         movement.moveSpeed *= heavySpeedMultiplier;
         movement.jumpSpeed *= heavyJumpMultiplier;
         gunContoller.maxSprayDegree *= heavyGunSprayMultiplier;
@@ -89,8 +100,9 @@ public class Betty : MonoBehaviour, ICollector
         if (!isHeavy)
             return;
 
+        stateText.text = "Normal <";
         isHeavy = false;
-        maxBonesCount /= heavyMaxBonesMultiplier;
+        maxBonesCount -= heavyMaxBonesMultiplier;
         movement.moveSpeed /= heavySpeedMultiplier;
         movement.jumpSpeed /= heavyJumpMultiplier;
         gunContoller.maxSprayDegree /= heavyGunSprayMultiplier;
@@ -98,9 +110,11 @@ public class Betty : MonoBehaviour, ICollector
 
     public int DiscardBonesToPile()
     {
+        AudioManager.Instance.PlayPileUpgrade();
         EnterNormalState();
         int bonesToReturn = bonesCount;
         bonesCount = 0;
+
 
         return bonesToReturn;
     }
@@ -113,8 +127,18 @@ public class Betty : MonoBehaviour, ICollector
 
     public void PickUpPortalGun()
     {
+        AudioManager.Instance.PlayPickUp();
         gunSpriteRenderer.sprite = portalGunSprite;
         gunContoller.projectile = PortalGunBullets;
     }
 
+    public void AnimStep()
+    {
+        AudioManager.Instance.PlayPlayerRun();
+    }
+
+    public void BettyShot()
+    {
+        AudioManager.Instance.PlayShoot();
+    }
 }
