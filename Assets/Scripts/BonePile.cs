@@ -59,6 +59,7 @@ public class BonePile : MonoBehaviour
                 return;
             
             boneCount += betty.DiscardBonesToPile();
+            UpdatePileText();
 
             if (boneCount >= bonesToUpgrade)
             {
@@ -68,7 +69,6 @@ public class BonePile : MonoBehaviour
 
             if(boneCount >= boneThresholdToFall)
             {
-                UpdatePileText();
                 PileFall();
             }
         }
